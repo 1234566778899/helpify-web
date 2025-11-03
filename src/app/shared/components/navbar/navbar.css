@@ -1,0 +1,119 @@
+.navbar {
+    background: linear-gradient(90deg, #B8753E 0%, #9B6B3D 100%);
+    color: white;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Logo Section */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.logo-container:hover {
+    opacity: 0.8;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: white !important;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 0 16px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-links a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid white;
+}
+
+/* User Section */
+.user-section {
+    display: flex;
+    align-items: center;
+}
+
+.user-button {
+    color: white !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-name {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+    .navbar-container {
+        flex-wrap: wrap;
+        padding: 8px 16px;
+    }
+
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 8px;
+        overflow-x: auto;
+    }
+
+    .user-name {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .logo-text {
+        display: none;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+        padding: 0 8px;
+    }
+}

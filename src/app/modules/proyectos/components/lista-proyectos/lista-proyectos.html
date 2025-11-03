@@ -1,0 +1,54 @@
+<div class="lista-proyectos-container">
+    <!-- Header -->
+    <div class="header-section">
+        <h1>Proyectos Activos</h1>
+        <p class="subtitle">Descubre y apoya proyectos que transforman vidas</p>
+    </div>
+
+    <!-- Filtros y búsqueda -->
+    <div class="filtros-section">
+        <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Buscar proyectos</mat-label>
+            <input matInput [(ngModel)]="searchTerm" (ngModelChange)="buscarProyectos()"
+                placeholder="Nombre, descripción, escuela...">
+            <mat-icon matPrefix>search</mat-icon>
+            <button mat-icon-button matSuffix *ngIf="searchTerm" (click)="limpiarBusqueda()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="ordenar-field">
+            <mat-label>Ordenar por</mat-label>
+            <mat-select [(ngModel)]="ordenar" (selectionChange)="aplicarOrden()">
+                <mat-option value="reciente">Más recientes</mat-option>
+                <mat-option value="antiguo">Más antiguos</mat-option>
+                <mat-option value="mayorMonto">Mayor monto</mat-option>
+                <mat-option value="menorMonto">Menor monto</mat-option>
+            </mat-select>
+            <mat-icon matPrefix>sort</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <!-- Loading spinner -->
+    <div class="loading-container" *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+        <p>Cargando proyectos...</p>
+    </div>
+
+    <!-- Grid de proyectos -->
+    <div class="proyectos-grid" *ngIf="!isLoading && proyectosFiltrados.length > 0">
+        <app-card-proyecto *ngFor="let proyecto of proyectosFiltrados" [proyecto]="proyecto"
+            (agregarWishlist)="agregarAWishlist($event)">
+        </app-card-proyecto>
+    </div>
+
+    <!-- Sin resultados -->
+    <div class="no-results" *ngIf="!isLoading && proyectosFiltrados.length === 0">
+        <mat-icon>search_off</mat-icon>
+        <h3>No se encontraron proyectos</h3>
+        <p>Intenta con otros términos de búsqueda</p>
+        <button mat-raised-button color="primary" (click)="limpiarBusqueda()">
+            Ver todos los proyectos
+        </button>
+    </div>
+</div>

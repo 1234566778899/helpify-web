@@ -1,0 +1,293 @@
+.detalle-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.volver-section {
+    margin-bottom: 24px;
+}
+
+.volver-section button {
+    color: #6D4C3D;
+}
+
+.detalle-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 32px;
+}
+
+/* Imagen Section */
+.imagen-section {
+    position: relative;
+}
+
+.proyecto-imagen {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    max-height: 600px;
+}
+
+.estado-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(246, 154, 63, 0.95);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.estado-badge.finalizado {
+    background: rgba(76, 175, 80, 0.95);
+}
+
+.estado-badge mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Info Section */
+.info-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card mat-card-header {
+    padding: 24px 24px 16px;
+}
+
+.info-card h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #6D4C3D;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.info-card mat-card-content {
+    padding: 0 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.info-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+mat-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+mat-chip mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+/* Secciones */
+.descripcion-section,
+.progreso-section,
+.fechas-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.descripcion-section h3,
+.progreso-section h3,
+.fechas-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #6D4C3D;
+    margin: 0;
+}
+
+.descripcion-section p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+    margin: 0;
+}
+
+/* Progreso */
+.monto-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.monto-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
+    background: #F8F8F8;
+    border-radius: 8px;
+}
+
+.monto-item .label {
+    font-size: 12px;
+    color: #999;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.monto-item .valor {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.monto-item .valor.recaudado {
+    color: #F69A3F;
+}
+
+.monto-item .valor.objetivo {
+    color: #6D4C3D;
+}
+
+.monto-item .valor.porcentaje {
+    color: #4CAF50;
+}
+
+.progress-bar {
+    height: 12px;
+    border-radius: 6px;
+}
+
+/* Fechas */
+.fechas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.fecha-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
+    background: #F8F8F8;
+    border-radius: 8px;
+}
+
+.fecha-item .label {
+    font-size: 12px;
+    color: #999;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.fecha-item .valor {
+    font-size: 16px;
+    font-weight: 600;
+    color: #6D4C3D;
+}
+
+/* Acciones */
+.acciones {
+    padding: 24px !important;
+    border-top: 1px solid #eee;
+}
+
+.acciones-usuario,
+.acciones-admin {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    align-items: center;
+}
+
+.btn-principal {
+    flex: 1;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn-secundario {
+    flex: 1;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.acciones-admin button {
+    flex: 1;
+}
+
+/* Loading */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 16px;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .detalle-content {
+        grid-template-columns: 1fr;
+    }
+
+    .imagen-section {
+        order: 1;
+    }
+
+    .info-section {
+        order: 2;
+    }
+
+    .monto-info {
+        grid-template-columns: 1fr;
+    }
+
+    .info-card h1 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .detalle-container {
+        padding: 16px;
+    }
+
+    .acciones-usuario,
+    .acciones-admin {
+        flex-direction: column;
+    }
+
+    .btn-principal,
+    .btn-secundario {
+        width: 100%;
+    }
+}

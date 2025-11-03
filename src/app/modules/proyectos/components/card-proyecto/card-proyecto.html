@@ -1,0 +1,65 @@
+<mat-card class="proyecto-card">
+    <!-- Imagen del proyecto -->
+    <div class="card-image-container">
+        <img mat-card-image [src]="proyecto.imagen || 'assets/images/proyecto-default.jpg'"
+            [alt]="proyecto.nombreproyecto" class="card-image">
+
+        <!-- Badge de días restantes -->
+        <div class="dias-badge" *ngIf="diasRestantes > 0">
+            <mat-icon>schedule</mat-icon>
+            <span>{{ diasRestantes }} días</span>
+        </div>
+        <div class="dias-badge finalizado" *ngIf="diasRestantes <= 0">
+            <mat-icon>check_circle</mat-icon>
+            <span>Finalizado</span>
+        </div>
+    </div>
+
+    <mat-card-content>
+        <!-- Título -->
+        <h3 class="proyecto-titulo">{{ proyecto.nombreproyecto }}</h3>
+
+        <!-- Descripción -->
+        <p class="proyecto-descripcion">
+            {{ proyecto.descripcion.length > 100 ?
+            (proyecto.descripcion | slice:0:100) + '...' :
+            proyecto.descripcion }}
+        </p>
+
+        <!-- Información adicional -->
+        <div class="proyecto-info">
+            <mat-chip-set>
+                <mat-chip *ngIf="proyecto.escuelabeneficiada">
+                    <mat-icon>school</mat-icon>
+                    {{ proyecto.escuelabeneficiada }}
+                </mat-chip>
+                <!-- <mat-chip *ngIf="proyecto.nombreorganización">
+                    <mat-icon>business</mat-icon>
+                    {{ proyecto.nombreorganización }}
+                </mat-chip> -->
+            </mat-chip-set>
+        </div>
+
+        <!-- Barra de progreso -->
+        <div class="progreso-container">
+            <div class="progreso-info">
+                <span class="monto-recaudado">S/ {{ proyecto.montorecaudado | number:'1.2-2' }}</span>
+                <span class="monto-objetivo">de S/ {{ proyecto.montoobjetivo | number:'1.2-2' }}</span>
+            </div>
+            <mat-progress-bar mode="determinate" [value]="porcentajeRecaudado"
+                [color]="porcentajeRecaudado >= 100 ? 'accent' : 'primary'">
+            </mat-progress-bar>
+            <span class="porcentaje">{{ porcentajeRecaudado | number:'1.0-0' }}%</span>
+        </div>
+    </mat-card-content>
+
+    <!-- Acciones -->
+    <mat-card-actions *ngIf="showActions">
+        <button mat-raised-button color="primary" [routerLink]="['/proyectos', proyecto.idproyecto]">
+            Ver más
+        </button>
+        <button mat-icon-button (click)="onAgregarWishlist()" class="wishlist-button">
+            <mat-icon>favorite_border</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

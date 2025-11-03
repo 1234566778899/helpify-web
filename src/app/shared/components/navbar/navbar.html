@@ -1,0 +1,55 @@
+<mat-toolbar class="navbar">
+    <div class="navbar-container">
+        <!-- Logo -->
+        <div class="logo-container" routerLink="/">
+            <img src="images/logo.png" alt="Helpify Logo" class="logo">
+            <span class="logo-text">HELPIFY</span>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a mat-button routerLink="/home" routerLinkActive="active">HOME</a>
+            <a mat-button routerLink="/comunidad" routerLinkActive="active">COMUNIDAD</a>
+            <a mat-button routerLink="/proyectos" routerLinkActive="active">PROYECTOS</a>
+
+            <!-- Mostrar según autenticación -->
+            <ng-container *ngIf="isAuthenticated">
+                <a mat-button routerLink="/wishlist" routerLinkActive="active">WISHLIST</a>
+                <a mat-button routerLink="/notificaciones" routerLinkActive="active">NOTIFICACIONES</a>
+                <a mat-button routerLink="/foros" routerLinkActive="active">FOROS</a>
+            </ng-container>
+        </nav>
+
+        <!-- User Menu / Login -->
+        <div class="user-section">
+            <ng-container *ngIf="isAuthenticated; else loginButton">
+                <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
+                    <mat-icon>account_circle</mat-icon>
+                    <span class="user-name">{{ userName }}</span>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+                <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item (click)="navigateToProfile()">
+                        <mat-icon>person</mat-icon>
+                        <span>Mi Perfil</span>
+                    </button>
+                    <button mat-menu-item *ngIf="isAdmin()" routerLink="/proyectos/crear">
+                        <mat-icon>add_circle</mat-icon>
+                        <span>Crear Proyecto</span>
+                    </button>
+                    <mat-divider></mat-divider>
+                    <button mat-menu-item (click)="logout()">
+                        <mat-icon>logout</mat-icon>
+                        <span>Cerrar Sesión</span>
+                    </button>
+                </mat-menu>
+            </ng-container>
+
+            <ng-template #loginButton>
+                <button mat-raised-button color="primary" routerLink="/login">
+                    INICIAR SESIÓN
+                </button>
+            </ng-template>
+        </div>
+    </div>
+</mat-toolbar>

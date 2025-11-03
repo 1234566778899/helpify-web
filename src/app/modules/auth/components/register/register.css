@@ -1,0 +1,130 @@
+.register-container {
+    min-height: calc(100vh - 64px - 200px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    background: linear-gradient(135deg, #FFDCC6 0%, #FFF8F5 100%);
+}
+
+.register-card-wrapper {
+    width: 100%;
+    max-width: 600px;
+}
+
+.register-card {
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.header-content {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.back-button {
+    position: absolute;
+    left: -16px;
+    top: -8px;
+    color: #6D4C3D;
+}
+
+.header-content h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #6D4C3D;
+    margin: 0 0 8px 0;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    color: #9B6B3D;
+    font-size: 14px;
+    margin: 0;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.checkbox-container {
+    margin: 8px 0;
+}
+
+.checkbox-container a {
+    color: #F69A3F;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.checkbox-container a:hover {
+    text-decoration: underline;
+}
+
+.submit-button {
+    width: 100%;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 16px;
+    background: linear-gradient(90deg, #F69A3F 0%, #F27E29 100%);
+    color: white;
+}
+
+.submit-button:hover:not([disabled]) {
+    background: linear-gradient(90deg, #F27E29 0%, #EF6C1B 100%);
+}
+
+.submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.login-link p {
+    color: #6D4C3D;
+    font-size: 14px;
+    margin: 0;
+}
+
+.login-link a {
+    color: #F69A3F;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.login-link a:hover {
+    color: #F27E29;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .register-container {
+        padding: 16px;
+    }
+
+    .register-card {
+        padding: 24px 16px;
+    }
+
+    .header-content h1 {
+        font-size: 24px;
+    }
+}

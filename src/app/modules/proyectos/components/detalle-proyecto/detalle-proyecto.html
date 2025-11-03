@@ -1,0 +1,142 @@
+<div class="detalle-container" *ngIf="!isLoading && proyecto">
+    <!-- Botón volver -->
+    <div class="volver-section">
+        <button mat-button routerLink="/proyectos">
+            <mat-icon>arrow_back</mat-icon>
+            Volver a proyectos
+        </button>
+    </div>
+
+    <div class="detalle-content">
+        <!-- Columna izquierda: Imagen -->
+        <div class="imagen-section">
+            <img [src]="proyecto.imagen || 'assets/images/proyecto-default.jpg'" [alt]="proyecto.nombreproyecto"
+                class="proyecto-imagen">
+
+            <!-- Estado del proyecto -->
+            <div class="estado-badge" [class.finalizado]="diasRestantes <= 0">
+                <mat-icon>{{ diasRestantes > 0 ? 'schedule' : 'check_circle' }}</mat-icon>
+                <span>{{ diasRestantes > 0 ? diasRestantes + ' días restantes' : 'Proyecto finalizado' }}</span>
+            </div>
+        </div>
+
+        <!-- Columna derecha: Información -->
+        <div class="info-section">
+            <mat-card class="info-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        <h1>{{ proyecto.nombreproyecto }}</h1>
+                    </mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <!-- Chips informativos -->
+                    <mat-chip-set class="info-chips">
+                        <mat-chip *ngIf="proyecto.escuelabeneficiada">
+                            <mat-icon>school</mat-icon>
+                            {{ proyecto.escuelabeneficiada }}
+                        </mat-chip>
+                        <!-- <mat-chip *ngIf="proyecto.nombreorganización">
+                            <mat-icon>business</mat-icon>
+                            {{ proyecto.nombreorganización }}
+                        </mat-chip> -->
+                        <mat-chip *ngIf="proyecto.cupoMaximo">
+                            <mat-icon>group</mat-icon>
+                            Cupo: {{ proyecto.cupoMaximo }}
+                        </mat-chip>
+                    </mat-chip-set>
+
+                    <mat-divider></mat-divider>
+
+                    <!-- Descripción -->
+                    <div class="descripcion-section">
+                        <h3><mat-icon>description</mat-icon> Descripción</h3>
+                        <p>{{ proyecto.descripcion }}</p>
+                    </div>
+
+                    <mat-divider></mat-divider>
+
+                    <!-- Progreso de donación -->
+                    <div class="progreso-section">
+                        <h3><mat-icon>trending_up</mat-icon> Progreso de Recaudación</h3>
+
+                        <div class="monto-info">
+                            <div class="monto-item">
+                                <span class="label">Recaudado</span>
+                                <span class="valor recaudado">S/ {{ proyecto.montorecaudado | number:'1.2-2' }}</span>
+                            </div>
+                            <div class="monto-item">
+                                <span class="label">Meta</span>
+                                <span class="valor objetivo">S/ {{ proyecto.montoobjetivo | number:'1.2-2' }}</span>
+                            </div>
+                            <div class="monto-item">
+                                <span class="label">Porcentaje</span>
+                                <span class="valor porcentaje">{{ porcentajeRecaudado | number:'1.0-0' }}%</span>
+                            </div>
+                        </div>
+
+                        <mat-progress-bar mode="determinate" [value]="porcentajeRecaudado"
+                            [color]="porcentajeRecaudado >= 100 ? 'accent' : 'primary'" class="progress-bar">
+                        </mat-progress-bar>
+                    </div>
+
+                    <mat-divider></mat-divider>
+
+                    <!-- Fechas -->
+                    <div class="fechas-section">
+                        <h3><mat-icon>calendar_today</mat-icon> Fechas del Proyecto</h3>
+                        <div class="fechas-grid">
+                            <div class="fecha-item">
+                                <span class="label">Inicio</span>
+                                <span class="valor">{{ proyecto.fechainicio | date:'dd/MM/yyyy' }}</span>
+                            </div>
+                            <div class="fecha-item">
+                                <span class="label">Fin</span>
+                                <span class="valor">{{ proyecto.fechafin | date:'dd/MM/yyyy' }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-card-content>
+
+                <mat-card-actions class="acciones">
+                    <!-- Botones para usuarios normales -->
+                    <div class="acciones-usuario" *ngIf="!isAdmin">
+                        <button mat-raised-button color="primary" class="btn-principal" (click)="donar()">
+                            <mat-icon>favorite</mat-icon>
+                            Donar Ahora
+                        </button>
+                        <button mat-raised-button class="btn-secundario" (click)="agregarAWishlist()">
+                            <mat-icon>bookmark</mat-icon>
+                            Agregar a Wishlist
+                        </button>
+                        <button mat-icon-button (click)="compartir()" matTooltip="Compartir">
+                            <mat-icon>share</mat-icon>
+                        </button>
+                    </div>
+
+                    <!-- Botones para admin -->
+                    <div class="acciones-admin" *ngIf="isAdmin">
+                        <button mat-raised-button color="primary">
+                            <mat-icon>edit</mat-icon>
+                            Editar
+                        </button>
+                        <button mat-raised-button color="warn" (click)="eliminarProyecto()">
+                            <mat-icon>delete</mat-icon>
+                            Eliminar
+                        </button>
+                        <button mat-icon-button (click)="compartir()" matTooltip="Compartir">
+                            <mat-icon>share</mat-icon>
+                        </button>
+                    </div>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<!-- Loading -->
+<div class="loading-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+    <p>Cargando proyecto...</p>
+</div>

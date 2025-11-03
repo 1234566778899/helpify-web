@@ -1,0 +1,72 @@
+<div class="wishlist-container">
+    <!-- Header con info del usuario -->
+    <div class="usuario-section">
+        <mat-card class="usuario-card">
+            <mat-card-content>
+                <div class="usuario-info">
+                    <mat-icon class="usuario-icon">account_circle</mat-icon>
+                    <span class="usuario-nombre">{{ userName }}</span>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- Título -->
+    <div class="header-section">
+        <h1>WISHLIST</h1>
+        <p class="subtitle">Tus proyectos favoritos guardados</p>
+    </div>
+
+    <!-- Lista de proyectos -->
+    <div class="proyectos-lista" *ngIf="wishlistProyectos.length > 0">
+        <div class="proyecto-item" *ngFor="let proyecto of wishlistProyectos">
+            <mat-card class="proyecto-card-horizontal">
+                <div class="proyecto-content">
+                    <!-- Imagen -->
+                    <div class="proyecto-imagen-container">
+                        <img [src]="proyecto.imagen || 'assets/images/proyecto-default.jpg'"
+                            [alt]="proyecto.nombreproyecto" class="proyecto-imagen">
+                    </div>
+
+                    <!-- Información -->
+                    <div class="proyecto-info">
+                        <h3>{{ proyecto.nombreproyecto }}</h3>
+                        <p class="descripcion">{{ proyecto.descripcion }}</p>
+
+                        <div class="meta-info">
+                            <span class="meta-item" *ngIf="proyecto.escuelabeneficiada">
+                                <mat-icon>school</mat-icon>
+                                {{ proyecto.escuelabeneficiada }}
+                            </span>
+                            <!-- <span class="meta-item" *ngIf="proyecto.nombreorganización">
+                                <mat-icon>business</mat-icon>
+                                {{ proyecto.nombreorganización }}
+                            </span> -->
+                        </div>
+                    </div>
+
+                    <!-- Acciones -->
+                    <div class="proyecto-acciones">
+                        <!-- <button mat-raised-button color="primary" [routerLink]="['/proyectos', proyecto.idproyecto]">
+                            Ver más
+                        </button> -->
+                        <button mat-icon-button color="warn" (click)="eliminarDeWishlist(proyecto.idproyecto)"
+                            matTooltip="Eliminar de wishlist">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+
+    <!-- Estado vacío -->
+    <div class="empty-state" *ngIf="wishlistProyectos.length === 0">
+        <mat-icon>bookmark_border</mat-icon>
+        <h3>Tu wishlist está vacía</h3>
+        <p>Explora proyectos y agrega tus favoritos aquí</p>
+        <button mat-raised-button color="primary" routerLink="/proyectos">
+            Explorar proyectos
+        </button>
+    </div>
+</div>

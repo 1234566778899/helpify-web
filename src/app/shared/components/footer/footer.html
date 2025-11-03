@@ -1,0 +1,43 @@
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Columna 1: Contacto -->
+        <div class="footer-column">
+            <h3>CONTÁCTANOS</h3>
+            <p>
+                <mat-icon>email</mat-icon>
+                <a href="mailto:Helpify@gmail.com">Helpify@gmail.com</a>
+            </p>
+        </div>
+
+        <!-- Columna 2: Enlaces -->
+        <div class="footer-column">
+            <h3>INFORMACIÓN</h3>
+            <ul>
+                <li><a routerLink="/preguntas-frecuentes">PREGUNTAS FRECUENTES</a></li>
+                <li><a routerLink="/terminos-condiciones">TÉRMINOS Y CONDICIONES</a></li>
+                <li><a routerLink="/libro-reclamaciones">LIBRO DE RECLAMACIONES</a></li>
+            </ul>
+        </div>
+
+        <!-- Columna 3: Redes Sociales -->
+        <div class="footer-column">
+            <h3>ENCUÉNTRANOS EN</h3>
+            <div class="social-icons">
+                <button mat-icon-button (click)="openSocialMedia('tiktok')" aria-label="TikTok">
+                    <mat-icon svgIcon="tiktok">music_note</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openSocialMedia('facebook')" aria-label="Facebook">
+                    <mat-icon>facebook</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openSocialMedia('instagram')" aria-label="Instagram">
+                    <mat-icon svgIcon="instagram">photo_camera</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p>&copy; {{ currentYear }} Helpify. Todos los derechos reservados.</p>
+    </div>
+</footer>
