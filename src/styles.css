@@ -1,4 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Rubik+Mono+One&display=swap');
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+    --brown: #A36226;
+    --brown-dark: #6D4118;
+    --yellow: #FFEAAA;
+    --pink: #FFC2BD;
+    --white: #FFFFFF;
+    --bg-soft: #FAC99B;
+    --card-bg: #5a3518;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background-color: var(--bg-soft) !important;
+    /* fuerza el fondo */
+}

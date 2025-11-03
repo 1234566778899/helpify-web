@@ -1,138 +1,36 @@
-<div class="crear-proyecto-container">
-    <div class="form-wrapper">
-        <mat-card class="form-card">
-            <mat-card-header>
-                <div class="header-content">
-                    <h1>INFORMACIÓN DEL PROYECTO</h1>
-                    <p class="subtitle">Completa los datos del nuevo proyecto</p>
-                </div>
-            </mat-card-header>
+<main>
+    <section class="form-section">
+        <h1>INFORMACIÓN DEL PROYECTO</h1>
 
-            <mat-card-content>
-                <form [formGroup]="proyectoForm" (ngSubmit)="onSubmit()" class="proyecto-form">
+        <form [formGroup]="proyectoForm" (ngSubmit)="onSubmit()" novalidate>
+            <input type="text" placeholder="Nombre del proyecto*" formControlName="nombreproyecto" />
+            <input type="text" placeholder="Descripción*" formControlName="descripcion" />
+            <input type="number" placeholder="Monto objetivo*" formControlName="montoobjetivo" />
+            <input type="number" placeholder="Monto recaudado*" formControlName="montorecaudado" />
+            <input type="date" placeholder="Fecha inicio (yyyy-MM-dd)*" formControlName="fechainicio" />
+            <input type="date" placeholder="Fecha fin (yyyy-MM-dd)*" formControlName="fechafin" />
+            <input type="text" placeholder="Nombre de la Organización*" formControlName="nombreorganización" />
+            <input type="text" placeholder="Escuela beneficiada*" formControlName="escuelabeneficiada" />
+            <input type="number" placeholder="Cupo máximo*" formControlName="cupoMaximo" />
 
-                    <!-- Nombre del proyecto -->
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Nombre del proyecto*</mat-label>
-                        <input matInput formControlName="nombreproyecto" placeholder="Ej: Tecnología para Aprender"
-                            maxlength="50">
-                        <mat-error *ngIf="proyectoForm.get('nombreproyecto')?.invalid">
-                            {{ getErrorMessage('nombreproyecto') }}
-                        </mat-error>
-                    </mat-form-field>
+            <!-- Selector de imagen -->
+            <div class="file-row">
+                <span class="file-label">Seleccione una imagen</span>
+                <input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)"
+                    style="display: none" />
+                <label for="imagen" class="file-btn" (click)="fileInput.click()">Elegir archivo</label>
+                <span class="file-name">
+                    {{ imagenPreview ? 'Imagen seleccionada' : 'Ningún archivo seleccionado' }}
+                </span>
+            </div>
 
-                    <!-- Descripción -->
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Descripción*</mat-label>
-                        <textarea matInput formControlName="descripcion" placeholder="Describe el proyecto..."
-                            maxlength="300" rows="4">
-            </textarea>
-                        <mat-hint align="end">
-                            {{ proyectoForm.get('descripcion')?.value?.length || 0 }}/300
-                        </mat-hint>
-                        <mat-error *ngIf="proyectoForm.get('descripcion')?.invalid">
-                            {{ getErrorMessage('descripcion') }}
-                        </mat-error>
-                    </mat-form-field>
+            <div class="imagen-preview" *ngIf="imagenPreview">
+                <img [src]="imagenPreview" alt="Preview" />
+            </div>
 
-                    <!-- Monto objetivo -->
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Monto objetivo*</mat-label>
-                        <input matInput type="number" formControlName="montoobjetivo" placeholder="0.00">
-                        <span matTextPrefix>S/ &nbsp;</span>
-                        <mat-error *ngIf="proyectoForm.get('montoobjetivo')?.invalid">
-                            {{ getErrorMessage('montoobjetivo') }}
-                        </mat-error>
-                    </mat-form-field>
-
-                    <!-- Monto recaudado -->
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Monto recaudado*</mat-label>
-                        <input matInput type="number" formControlName="montorecaudado" placeholder="0.00">
-                        <span matTextPrefix>S/ &nbsp;</span>
-                        <mat-error *ngIf="proyectoForm.get('montorecaudado')?.invalid">
-                            {{ getErrorMessage('montorecaudado') }}
-                        </mat-error>
-                    </mat-form-field>
-
-                    <!-- Fecha inicio -->
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Fecha inicio (yyyy-MM-dd)*</mat-label>
-                        <input matInput [matDatepicker]="pickerInicio" formControlName="fechainicio"
-                            placeholder="yyyy-MM-dd">
-                        <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerInicio></mat-datepicker>
-                        <mat-error *ngIf="proyectoForm.get('fechainicio')?.invalid">
-                            {{ getErrorMessage('fechainicio') }}
-                        </mat-error>
-                    </mat-form-field>
-
-                    <!-- Fecha fin -->
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Fecha fin (yyyy-MM-dd)*</mat-label>
-                        <input matInput [matDatepicker]="pickerFin" formControlName="fechafin" placeholder="yyyy-MM-dd">
-                        <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerFin></mat-datepicker>
-                        <mat-error *ngIf="proyectoForm.get('fechafin')?.invalid">
-                            {{ getErrorMessage('fechafin') }}
-                        </mat-error>
-                    </mat-form-field>
-
-                    <!-- Nombre de la Organización -->
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Nombre de la Organización*</mat-label>
-                        <input matInput formControlName="nombreorganización" placeholder="Ej: Fundación Ayuda Social">
-                        <mat-error *ngIf="proyectoForm.get('nombreorganización')?.invalid">
-                            {{ getErrorMessage('nombreorganización') }}
-                        </mat-error>
-                    </mat-form-field>
-
-                    <!-- Escuela beneficiada -->
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Escuela beneficiada*</mat-label>
-                        <input matInput formControlName="escuelabeneficiada" placeholder="Ej: I.E. San José">
-                        <mat-error *ngIf="proyectoForm.get('escuelabeneficiada')?.invalid">
-                            {{ getErrorMessage('escuelabeneficiada') }}
-                        </mat-error>
-                    </mat-form-field>
-
-                    <!-- Cupo máximo -->
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Cupo máximo*</mat-label>
-                        <input matInput type="number" formControlName="cupoMaximo" placeholder="Ej: 50">
-                        <mat-error *ngIf="proyectoForm.get('cupoMaximo')?.invalid">
-                            {{ getErrorMessage('cupoMaximo') }}
-                        </mat-error>
-                    </mat-form-field>
-
-                    <!-- Selección de imagen -->
-                    <div class="imagen-section">
-                        <label class="imagen-label">Seleccione una imagen</label>
-                        <div class="imagen-input-container">
-                            <input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)"
-                                style="display: none;">
-                            <button mat-raised-button type="button" (click)="fileInput.click()">
-                                Elegir archivo
-                            </button>
-                            <span class="file-name" *ngIf="imagenPreview">Imagen seleccionada</span>
-                            <span class="file-name" *ngIf="!imagenPreview">Ningún archivo seleccionado</span>
-                        </div>
-
-                        <!-- Preview de la imagen -->
-                        <div class="imagen-preview" *ngIf="imagenPreview">
-                            <img [src]="imagenPreview" alt="Preview">
-                        </div>
-                    </div>
-
-                    <!-- Botón Guardar -->
-                    <button mat-raised-button color="primary" type="submit" class="submit-button"
-                        [disabled]="isLoading">
-                        <span *ngIf="!isLoading">Guardar</span>
-                        <span *ngIf="isLoading">Guardando...</span>
-                    </button>
-
-                </form>
-            </mat-card-content>
-        </mat-card>
-    </div>
-</div>
+            <button id="guardarBtn" type="submit" [disabled]="isLoading">
+                {{ isLoading ? 'Guardando...' : 'Guardar' }}
+            </button>
+        </form>
+    </section>
+</main>

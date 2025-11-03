@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -16,6 +16,7 @@ import { Usuario } from '../../../../core/models/usuario.model';
 @Component({
   selector: 'app-register',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -55,7 +56,9 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar
   ) { }
-
+  goBack(): void {
+    this.router.navigate(['/login']);
+  }
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       nombredocumento: ['', Validators.required],

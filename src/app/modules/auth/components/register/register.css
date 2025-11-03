@@ -1,130 +1,359 @@
-.register-container {
-    min-height: calc(100vh - 64px - 200px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 24px;
-    background: linear-gradient(135deg, #FFDCC6 0%, #FFF8F5 100%);
+:root {
+    /* Colores (según tu paleta) */
+    --brown: #A36226;
+    /* A36226 */
+    --brown-dark: #6D4118;
+    /* títulos */
+    --yellow: #FFEAAA;
+    /* fondo inputs */
+    --pink: #FFC2BD;
+    /* rosado */
+    --white: #FFFFFF;
+    --bg-soft: #FAC99B;
+    /* anaranjado de fondo */
+    --card-bg: #5a3518;
+    /* un marrón oscuro para contraste (ajustable) */
 }
 
-.register-card-wrapper {
-    width: 100%;
-    max-width: 600px;
+/* Fuentes:
+   - Rubik Mono One y Play vienen de Google Fonts.
+   - NATS no está en Google Fonts por defecto: si tienes el .woff2, sigue
+     las instrucciones comentadas al final para cargarla con @font-face.
+*/
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Play', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: var(--bg-soft);
+    color: #2b170e;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header */
+.site-header {
+    background: var(--brown);
+    color: var(--white);
+    padding: 18px 28px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+}
+
+.logo-mark {
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    background: #FFD9B5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.logo-text {
+    font-family: 'Rubik Mono One', 'Segoe UI', sans-serif;
+    letter-spacing: 1px;
+    font-size: 20px;
+}
+
+/* Navigation */
+.main-nav a {
+    color: var(--white);
+    text-decoration: none;
+    margin-left: 18px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Main */
+.main {
+    max-width: 1100px;
+    margin: 26px auto;
+    padding: 0 18px;
+}
+
+/* Back button */
+.back-btn {
+    margin-bottom: 8px;
+}
+
+#goBack {
+    background: var(--pink);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Card (form) */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .register-card {
-    padding: 32px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    width: 780px;
+    background: var(--card-bg);
+    color: var(--white);
+    padding: 28px;
+    border-radius: 4px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
-.header-content {
+.register-card .title {
+    font-family: 'Rubik Mono One', sans-serif;
     text-align: center;
-    width: 100%;
-    margin-bottom: 24px;
-    position: relative;
+    font-size: 44px;
+    margin: 0 0 18px 0;
+    letter-spacing: 6px;
+    color: var(--white);
 }
 
-.back-button {
-    position: absolute;
-    left: -16px;
-    top: -8px;
-    color: #6D4C3D;
+/* Form grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 12px 16px;
+    align-items: center;
+    font-weight: 600;
+    color: var(--white);
 }
 
-.header-content h1 {
-    font-size: 28px;
-    font-weight: bold;
-    color: #6D4C3D;
-    margin: 0 0 8px 0;
-    letter-spacing: 1px;
-}
-
-.subtitle {
-    color: #9B6B3D;
-    font-size: 14px;
-    margin: 0;
-}
-
-.register-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 24px;
-}
-
-.full-width {
-    width: 100%;
-}
-
-.checkbox-container {
-    margin: 8px 0;
-}
-
-.checkbox-container a {
-    color: #F69A3F;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.checkbox-container a:hover {
-    text-decoration: underline;
-}
-
-.submit-button {
-    width: 100%;
-    height: 48px;
+.form-grid label {
+    justify-self: start;
+    padding-left: 4px;
+    color: var(--white);
     font-size: 16px;
+}
+
+/* Inputs */
+.form-grid input[type="text"],
+.form-grid input[type="email"],
+.form-grid input[type="password"],
+.form-grid input[type="tel"],
+.form-grid select {
+    background: var(--yellow);
+    border: none;
+    padding: 10px 12px;
+    border-radius: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #3b2a20;
     font-weight: 600;
+    outline: none;
+}
+
+/* Password row */
+.password-row {
+    display: flex;
+    gap: 6px;
+}
+
+.password-row input {
+    flex: 1;
+}
+
+#togglePassword {
+    background: transparent;
+    border: none;
+    color: #3b2a20;
+    cursor: pointer;
+    padding: 0 6px;
+}
+
+/* Terms and submit */
+.terms-wrap {
+    grid-column: 1 / -1;
+    color: var(--yellow);
+}
+
+.checkbox-label {
+    font-weight: 600;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.submit-wrap {
+    grid-column: 2 / 3;
+    justify-self: end;
+}
+
+.btn-submit {
+    background: var(--pink);
+    color: var(--brown);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
     letter-spacing: 1px;
-    margin-top: 16px;
-    background: linear-gradient(90deg, #F69A3F 0%, #F27E29 100%);
-    color: white;
 }
 
-.submit-button:hover:not([disabled]) {
-    background: linear-gradient(90deg, #F27E29 0%, #EF6C1B 100%);
+/* Messages */
+.form-messages {
+    margin-top: 12px;
+    color: #FFF3D9;
+    font-weight: 700;
 }
 
-.submit-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+/* Footer */
+.site-footer {
+    margin-top: 32px;
+    background: var(--brown);
+    color: var(--white);
+    padding: 18px 28px;
 }
 
-.login-link {
-    text-align: center;
-    margin-top: 16px;
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
-.login-link p {
-    color: #6D4C3D;
-    font-size: 14px;
-    margin: 0;
+.footer-col h4 {
+    margin: 0 0 6px 0;
+    color: var(--yellow);
+    font-family: 'Rubik Mono One', sans-serif;
 }
 
-.login-link a {
-    color: #F69A3F;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s;
-}
-
-.login-link a:hover {
-    color: #F27E29;
-    text-decoration: underline;
+.footer-right {
+    text-align: right;
 }
 
 /* Responsive */
-@media (max-width: 600px) {
-    .register-container {
-        padding: 16px;
-    }
-
+@media (max-width:920px) {
     .register-card {
-        padding: 24px 16px;
+        width: 100%;
+        padding: 22px;
     }
 
-    .header-content h1 {
-        font-size: 24px;
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 10px 10px;
     }
+
+    .submit-wrap {
+        grid-column: 1 / -1;
+        justify-self: center;
+    }
+
+    .title {
+        font-size: 34px;
+        letter-spacing: 4px;
+    }
+
+    .main-nav {
+        display: none;
+    }
+
+    /* simplifica nav en pantallas pequeñas */
+}
+
+/* Small phones */
+@media (max-width:420px) {
+    .logo-text {
+        font-size: 16px;
+    }
+
+    .title {
+        font-size: 26px;
+        letter-spacing: 2px;
+    }
+
+    #goBack {
+        font-size: 16px;
+        padding: 6px 10px;
+    }
+}
+
+.select-rosado {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    color: #fff;
+    font-family: "Play", sans-serif;
+    font-size: 16px;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    padding: 10px 40px 10px 12px;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Contenedor que permite el triángulo personalizado */
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Triángulo rosado visible a la derecha */
+.select-wrapper::after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 10px solid #FFC2BD;
+    /* Rosado */
+    /* Borde rosado oscuro */
+    filter: drop-shadow(0 0 1px #58121f);
+    transform: translateY(-50%);
+}
+
+/* 🔧 Ajustes adicionales Angular */
+input.ng-invalid.ng-touched {
+    border: 2px solid #ff7a7a;
+    background: #ffeaea;
+}
+
+a {
+    color: #ffc2bd;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.register-card {
+    background: var(--card-bg);
+    color: var(--white);
+}
+
+.btn-submit {
+    background: var(--pink);
+    color: var(--brown);
+}
+
+.select-rosado {
+    border-top: 10px solid var(--pink);
 }

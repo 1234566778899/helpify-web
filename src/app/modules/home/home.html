@@ -1,195 +1,48 @@
-<div class="home-container">
+<!-- VISTA DE USUARIO AUTENTICADO -->
+<ng-container *ngIf="isAuthenticated">
+    <section class="wishlist-wrapper">
+        <!-- Sección Usuario -->
+        <h1 class="titulo-seccion">USUARIO</h1>
 
-    <!-- Vista para usuarios AUTENTICADOS -->
-    <ng-container *ngIf="isAuthenticated">
-        <div class="perfil-container">
-            <!-- Header: Usuario -->
-            <div class="usuario-section">
-                <h1 class="section-title">USUARIO</h1>
-
-                <mat-card class="usuario-card">
-                    <mat-card-content>
-                        <div class="usuario-info">
-                            <mat-icon class="usuario-icon">account_circle</mat-icon>
-                            <span class="usuario-nombre">{{ userName }}</span>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
+        <div class="usuario-card">
+            <div class="usuario-info">
+                <span class="usuario-icon">👤</span>
+                <span class="usuario-nombre">{{ userName }}</span>
             </div>
+        </div>
 
-            <!-- Wishlist Section -->
-            <div class="wishlist-section">
-                <h2 class="section-title">WISHLIST</h2>
+        <!-- Sección Wishlist -->
+        <h2 class="titulo-seccion">WISHLIST</h2>
 
-                <div class="wishlist-lista">
-                    <!-- Proyecto Item -->
-                    <mat-card class="proyecto-wishlist-card" *ngFor="let proyecto of wishlistProyectos">
-                        <mat-card-content>
-                            <div class="proyecto-content">
-                                <!-- Icono/Imagen del proyecto -->
-                                <div class="proyecto-icon" [class.icon-alt]="proyecto.idproyecto === 2">
-                                    <mat-icon *ngIf="proyecto.idproyecto === 1">computer</mat-icon>
-                                    <mat-icon *ngIf="proyecto.idproyecto === 2">school</mat-icon>
-                                </div>
-
-                                <!-- Información del proyecto -->
-                                <div class="proyecto-info">
-                                    <h3 class="proyecto-titulo">{{ proyecto.nombreproyecto }}</h3>
-                                    <p class="proyecto-descripcion">{{ proyecto.descripcion }}</p>
-                                </div>
-
-                                <!-- Botón Ver más -->
-                                <div class="proyecto-accion">
-                                    <button mat-raised-button class="btn-ver-mas"
-                                        [routerLink]="['/proyectos', proyecto.idproyecto]">
-                                        Ver más
-                                    </button>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
+        <div class="wishlist-lista" *ngIf="wishlistProyectos.length > 0; else emptyState">
+            <div class="wishlist-item" *ngFor="let proyecto of wishlistProyectos">
+                <div class="wishlist-icono">
+                    <img *ngIf="proyecto.idproyecto === 1"
+                        src="https://www.afoe.org/wp-content/uploads/2020/09/metodologias-tic-aula-afoe.jpg"
+                        alt="Tecnología para Aprender" />
+                    <img *ngIf="proyecto.idproyecto === 2"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ_Rgs-O3wu4GSdb4k4t1KTQdHxS3xNUEKkw&s"
+                        alt="Escuelas con Futuro" />
                 </div>
 
-                <!-- Estado vacío -->
-                <div class="empty-state" *ngIf="wishlistProyectos.length === 0">
-                    <mat-icon>bookmark_border</mat-icon>
-                    <p>No tienes proyectos en tu wishlist</p>
-                    <button mat-raised-button color="primary" routerLink="/proyectos">
-                        Explorar proyectos
+                <div class="wishlist-info">
+                    <h3>{{ proyecto.nombreproyecto }}</h3>
+                    <p>{{ proyecto.descripcion }}</p>
+                </div>
+
+                <div class="wishlist-accion">
+                    <button class="btn-ver-mas" [routerLink]="['/proyectos', proyecto.idproyecto]">
+                        Ver más
                     </button>
                 </div>
             </div>
         </div>
-    </ng-container>
 
-    <!-- Vista para usuarios NO AUTENTICADOS (Landing Page) -->
-    <ng-container *ngIf="!isAuthenticated">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">
-                        <span class="highlight">Transforma vidas</span> a través de la educación
-                    </h1>
-                    <p class="hero-subtitle">
-                        Conectamos personas comprometidas con proyectos que llevan educación de calidad
-                        a comunidades que más lo necesitan
-                    </p>
-
-                    <div class="hero-actions">
-                        <button mat-raised-button color="primary" class="btn-large" routerLink="/register">
-                            <mat-icon>person_add</mat-icon>
-                            Únete Ahora
-                        </button>
-                        <button mat-stroked-button class="btn-large btn-secondary"
-                            (click)="scrollToSection('proyectos')">
-                            <mat-icon>explore</mat-icon>
-                            Ver Proyectos
-                        </button>
-                    </div>
-                </div>
-
-                <div class="hero-image">
-                    <div class="hero-image-placeholder">
-                        <mat-icon class="hero-icon">school</mat-icon>
-                    </div>
-                </div>
+        <ng-template #emptyState>
+            <div class="empty-state">
+                <p>No tienes proyectos en tu wishlist</p>
+                <button routerLink="/proyectos" class="btn-ver-mas">Explorar proyectos</button>
             </div>
-
-            <!-- Scroll indicator -->
-            <div class="scroll-indicator" (click)="scrollToSection('estadisticas')">
-                <mat-icon>keyboard_arrow_down</mat-icon>
-            </div>
-        </section>
-
-        <!-- Estadísticas Section -->
-        <section id="estadisticas" class="estadisticas-section">
-            <div class="estadisticas-grid">
-                <div class="stat-card">
-                    <mat-icon class="stat-icon">folder_open</mat-icon>
-                    <h3 class="stat-number">{{ estadisticas.proyectosActivos }}+</h3>
-                    <p class="stat-label">Proyectos Activos</p>
-                </div>
-                <div class="stat-card">
-                    <mat-icon class="stat-icon">school</mat-icon>
-                    <h3 class="stat-number">{{ estadisticas.escuelasBeneficiadas }}+</h3>
-                    <p class="stat-label">Escuelas Beneficiadas</p>
-                </div>
-                <div class="stat-card">
-                    <mat-icon class="stat-icon">people</mat-icon>
-                    <h3 class="stat-number">{{ estadisticas.voluntarios }}+</h3>
-                    <p class="stat-label">Voluntarios</p>
-                </div>
-                <div class="stat-card">
-                    <mat-icon class="stat-icon">attach_money</mat-icon>
-                    <h3 class="stat-number">S/ {{ estadisticas.donacionesRecaudadas | number:'1.0-0' }}+</h3>
-                    <p class="stat-label">Recaudado</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Características Section -->
-        <section class="caracteristicas-section">
-            <div class="section-header">
-                <h2>¿Por qué elegir Helpify?</h2>
-                <p>Somos más que una plataforma, somos una comunidad comprometida con el cambio</p>
-            </div>
-
-            <div class="caracteristicas-grid">
-                <mat-card class="caracteristica-card" *ngFor="let item of caracteristicas">
-                    <div class="caracteristica-icon">
-                        <mat-icon>{{ item.icon }}</mat-icon>
-                    </div>
-                    <mat-card-content>
-                        <h3>{{ item.titulo }}</h3>
-                        <p>{{ item.descripcion }}</p>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-        </section>
-
-        <!-- Proyectos Destacados Section -->
-        <section id="proyectos" class="proyectos-section">
-            <div class="section-header">
-                <h2>Proyectos Destacados</h2>
-                <p>Descubre los proyectos que están transformando comunidades</p>
-            </div>
-
-            <div class="proyectos-grid" *ngIf="!isLoading && proyectosDestacados.length > 0">
-                <app-card-proyecto *ngFor="let proyecto of proyectosDestacados" [proyecto]="proyecto">
-                </app-card-proyecto>
-            </div>
-
-            <div class="loading-container" *ngIf="isLoading">
-                <mat-icon class="spinning">refresh</mat-icon>
-                <p>Cargando proyectos...</p>
-            </div>
-
-            <div class="ver-mas-container">
-                <button mat-raised-button color="primary" routerLink="/proyectos" class="btn-large">
-                    Ver Todos los Proyectos
-                    <mat-icon>arrow_forward</mat-icon>
-                </button>
-            </div>
-        </section>
-
-        <!-- Call to Action Section -->
-        <section class="cta-section">
-            <div class="cta-content">
-                <h2>¿Listo para hacer la diferencia?</h2>
-                <p>Únete a nuestra comunidad y ayuda a transformar vidas a través de la educación</p>
-
-                <div class="cta-buttons">
-                    <button mat-raised-button color="primary" class="btn-large" routerLink="/register">
-                        Crear Cuenta
-                    </button>
-                    <button mat-stroked-button class="btn-large btn-light" routerLink="/login">
-                        Iniciar Sesión
-                    </button>
-                </div>
-            </div>
-        </section>
-    </ng-container>
-
-</div>
+        </ng-template>
+    </section>
+</ng-container>
